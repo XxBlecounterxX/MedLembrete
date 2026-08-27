@@ -1,0 +1,164 @@
+/* ====== Estilos gerais ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f8fb;
+  color: #1e3a5f;
+  line-height: 1.6;
+}
+
+/* ====== Cabeçalho ====== */
+header {
+  background-color: #0b5394;
+  color: #ffffff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #7fd1ae;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Seção de destaque (hero) ====== */
+.hero {
+  background: linear-gradient(135deg, #0b5394, #0f766e);
+  color: #ffffff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.btn {
+  background-color: #7fd1ae;
+  color: #0b5394;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background-color: #9fe6c6;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  margin-left: 10px;
+}
+
+/* ====== Seções do conteúdo ====== */
+section {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+section h2 {
+  font-size: 30px;
+  text-align: center;
+  color: #0b5394;
+  margin-bottom: 30px;
+}
+
+.texto-centro {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* ====== Cartões de funcionalidades ====== */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  width: 280px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.card h3 {
+  color: #0f766e;
+  margin-bottom: 10px;
+}
+
+/* ====== Passos (como funciona) ====== */
+.passos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.passo {
+  background-color: #e8f4f1;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+}
+
+.passo .numero {
+  background-color: #0f766e;
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 40px;
+  margin: 0 auto 10px;
+  font-weight: bold;
+}
+
+/* ====== Rodapé ====== */
+footer {
+  background-color: #0b5394;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
