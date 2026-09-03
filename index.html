@@ -3,96 +3,321 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedLembrete — Controle de Medicamentos para Instituições</title>
-  <!-- CSS separado -->
-  <link rel="stylesheet" href="style.css">
+  <title>MedLembrete — Controle de Medicamentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --secondary: #0d9488;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
+      --radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+
+    /* Cabeçalho */
+    #header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; z-index: 1000; }
+    .header-container { max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; }
+    .logo span { color: var(--secondary); }
+    nav { display: flex; align-items: center; gap: 24px; }
+    nav a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 15px; transition: color 0.2s; }
+    nav a:hover { color: var(--primary); }
+
+    /* Botões */
+    .btn { background: var(--primary); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; font-size: 14px; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-outline { background: transparent; border: 1px solid #cbd5e1; color: var(--text-color); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: #ffffff; }
+
+    /* Banner principal */
+    .hero { padding: 80px 24px; text-align: center; background: linear-gradient(180deg, #f0f9ff 0%, var(--bg-color) 100%); }
+    .hero-content { max-width: 750px; margin: 0 auto; }
+    .badge { background: var(--primary-light); color: var(--primary-dark); padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .hero h1 { font-size: 40px; font-weight: 800; margin: 20px 0 12px; color: #0f172a; letter-spacing: -1px; }
+    .hero p { font-size: 17px; color: var(--text-muted); margin-bottom: 28px; }
+    .hero-btns { display: flex; justify-content: center; gap: 12px; }
+
+    /* Layout do Conteúdo */
+    .container { max-width: 1200px; margin: 60px auto; padding: 0 24px; }
+    .hidden { display: none !important; }
+
+    /* Seções Informativas */
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 28px; font-weight: 700; color: var(--text-color); }
+    .section-title p { color: var(--text-muted); font-size: 15px; margin-top: 4px; }
+
+    .sobre-card { background: white; padding: 32px; border-radius: var(--radius); border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm); line-height: 1.8; color: var(--text-muted); }
+    .sobre-card p + p { margin-top: 16px; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 24px; border-radius: var(--radius); border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--text-color); }
+    .card p { font-size: 14px; color: var(--text-muted); }
+
+    /* Painel do Usuário (Dashboard) */
+    .dashboard-card { background: var(--card-bg); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-md); border: 1px solid #e2e8f0; margin-bottom: 60px; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 24px; }
+    .dashboard-header h2 { font-size: 22px; font-weight: 700; }
+    .dashboard-header p { font-size: 14px; color: var(--text-muted); }
+
+    .med-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+    .med-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff; transition: all 0.2s; }
+    .med-info { display: flex; align-items: center; gap: 16px; }
+    .med-time { background: var(--primary-light); color: var(--primary-dark); font-weight: 700; padding: 6px 12px; border-radius: 6px; font-size: 14px; }
+    .med-details strong { font-size: 15px; color: var(--text-color); display: block; }
+    .med-details p { font-size: 13px; color: var(--text-muted); }
+
+    .btn-check { background: var(--secondary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; }
+
+    /* Modal de Login */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 2000; }
+    .modal-card { background: white; padding: 32px; border-radius: var(--radius); max-width: 380px; width: 90%; box-shadow: var(--shadow-lg); position: relative; border: 1px solid #e2e8f0; }
+    .modal-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .close-btn { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); }
+    
+    .form-group { margin-bottom: 16px; text-align: left; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; color: var(--text-color); }
+    .form-group input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--primary); }
+    
+    .error-msg { color: #dc2626; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+
+    /* Rodapé */
+    footer { border-top: 1px solid #e2e8f0; background: white; padding: 30px 24px; text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 80px; }
+  </style>
 </head>
 
 <body>
 
-  <!-- Cabeçalho com o nome do projeto e menu -->
-  <header>
-    <div class="logo">💊 Med<span>Lembrete</span></div>
-    <nav>
-      <a href="#sobre">Sobre</a>
-      <a href="#funcionalidades">Funcionalidades</a>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="login.html">Entrar</a>
-    </nav>
+  <!-- Header -->
+  <header id="header">
+    <div class="header-container">
+      <div class="logo">Med<span>Lembrete</span></div>
+      <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <button id="navLoginBtn" class="btn" onclick="openLoginModal()">Entrar</button>
+      </nav>
+    </div>
   </header>
 
-  <!-- Seção de destaque (primeira tela que aparece) -->
-  <div class="hero">
-    <h1>Controle de medicamentos sem papel</h1>
-    <p>Sistema web para instituições de longa permanência registrarem e acompanharem os medicamentos dos idosos de forma simples e segura.</p>
-    <a href="login.html" class="btn">Acessar o sistema</a>
-    <a href="#sobre" class="btn btn-outline">Conhecer o projeto</a>
-  </div>
-
-  <!-- Seção Sobre -->
-  <section id="sobre">
-    <h2>Sobre o projeto</h2>
-    <p class="texto-centro">
-      Muitas instituições ainda anotam medicamentos em cadernos e papéis, o que pode causar erros
-      e perda de informações. O <strong>MedLembrete</strong> digitaliza esse controle: cadastro de idosos,
-      medicamentos, horários e registro de cada dose administrada — tudo em um só lugar.
-    </p>
-  </section>
-
-  <!-- Seção Funcionalidades -->
-  <section id="funcionalidades">
-    <h2>Funcionalidades</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>📋 Cadastro de idosos</h3>
-        <p>Dados dos residentes e suas condições de saúde organizados no sistema.</p>
-      </div>
-      <div class="card">
-        <h3>💊 Medicamentos e horários</h3>
-        <p>Cadastro de cada remédio com dosagem, frequência e horários definidos.</p>
-      </div>
-      <div class="card">
-        <h3>✅ Registro de doses</h3>
-        <p>O profissional marca cada dose dada, com data, hora e quem administrou.</p>
-      </div>
-      <div class="card">
-        <h3>🔔 Alertas de atraso</h3>
-        <p>Aviso quando um medicamento não foi dado no horário previsto.</p>
-      </div>
-      <div class="card">
-        <h3>📊 Relatórios</h3>
-        <p>Histórico por idoso e relatórios de medicamentos dados e não dados.</p>
+  <!-- Banner Principal -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="badge">Gestão em Saúde</span>
+      <h1>Controle de medicamentos simples, humano e seguro</h1>
+      <p>Desenvolvido para instituições de longa permanência organizarem a rotina médica dos residentes com clareza e precisão.</p>
+      <div class="hero-btns">
+        <button class="btn" onclick="openLoginModal()">Acessar o sistema</button>
+        <a href="#sobre" class="btn btn-outline">Conhecer o projeto</a>
       </div>
     </div>
   </section>
 
-  <!-- Seção Como funciona -->
-  <section id="como-funciona">
-    <h2>Como funciona</h2>
-    <div class="passos">
-      <div class="passo">
-        <div class="numero">1</div>
-        <p><strong>Cadastrar</strong> os idosos e seus medicamentos com horários.</p>
+  <!-- Painel do Usuário (Sempre oculto no início) -->
+  <section id="dashboardSection" class="container hidden">
+    <div class="dashboard-card">
+      <div class="dashboard-header">
+        <div>
+          <h2>Painel de Controle</h2>
+          <p>Medicações agendadas para o dia de hoje</p>
+        </div>
+        <button class="btn btn-outline" style="color: #dc2626; border-color: #fca5a5;" onclick="handleLogout()">Sair</button>
       </div>
-      <div class="passo">
-        <div class="numero">2</div>
-        <p><strong>Receber</strong> alertas quando um medicamento estiver atrasado.</p>
+
+      <div class="med-list">
+        <div class="med-item" id="med1">
+          <div class="med-info">
+            <span class="med-time">08:00</span>
+            <div class="med-details">
+              <strong>Dona Ana — Losartana 50mg</strong>
+              <p>Tomar 1 comprimido com água após o café.</p>
+            </div>
+          </div>
+          <button class="btn-check" onclick="markAsAdministered('med1')">Confirmar Dose</button>
+        </div>
+
+        <div class="med-item" id="med2">
+          <div class="med-info">
+            <span class="med-time">12:00</span>
+            <div class="med-details">
+              <strong>Seu João — Metformina 850mg</strong>
+              <p>Tomar durante o almoço.</p>
+            </div>
+          </div>
+          <button class="btn-check" onclick="markAsAdministered('med2')">Confirmar Dose</button>
+        </div>
+
+        <div class="med-item" id="med3">
+          <div class="med-info">
+            <span class="med-time">14:00</span>
+            <div class="med-details">
+              <strong>Dona Maria — Paracetamol 500mg</strong>
+              <p>Administrar em caso de dor leve.</p>
+            </div>
+          </div>
+          <button class="btn-check" onclick="markAsAdministered('med3')">Confirmar Dose</button>
+        </div>
       </div>
-      <div class="passo">
-        <div class="numero">3</div>
-        <p><strong>Registrar</strong> cada dose administrada na rotina da instituição.</p>
+    </div>
+  </section>
+
+  <!-- Modal de Login (Campos limpos) -->
+  <div id="loginModal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+    <h2>Acesso ao Sistema</h2>
+    
+    <!-- Texto orientando o usuário sobre as credenciais -->
+    <p style="font-size: 13px; color: #64748b; margin-top: 8px; margin-bottom: 16px;">
+      Utilize os dados de acesso: <br>
+      <strong>E-mail:</strong> admin@medlembrete.com <br>
+      <strong>Senha:</strong> 123456
+    </p>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <!-- Os campos ficam em branco para o usuário digitar -->
+        <input type="email" id="email" value="" placeholder="Digite seu e-mail" required>
       </div>
-      <div class="passo">
-        <div class="numero">4</div>
-        <p><strong>Acompanhar</strong> pelo histórico e relatórios gerados.</p>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" value="" placeholder="Digite sua senha" required>
+      </div>
+      <p id="loginError" class="error-msg hidden">E-mail ou senha incorretos.</p>
+      <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+    </form>
+  </div>
+</div>
+
+  <!-- Seção Sobre -->
+  <section id="sobre" class="container">
+    <div class="section-title">
+      <h2>Sobre o Projeto</h2>
+      <p>Digitalização da rotina diária de cuidados</p>
+    </div>
+    <div class="sobre-card">
+      <p>
+        Muitas instituições de longa permanência ainda utilizam cadernos físicos e anotações manuais para controlar a medicação dos residentes.
+      </p>
+      <p>
+        O <strong>MedLembrete</strong> digitaliza toda essa rotina de forma intuitiva: centralize o cadastro de residentes, controle os estoques, agende horários e registre cada dose aplicada de maneira ágil.
+      </p>
+    </div>
+  </section>
+
+  <!-- Seção Funcionalidades -->
+  <section id="funcionalidades" class="container">
+    <div class="section-title">
+      <h2>Funcionalidades Principais</h2>
+      <p>Recursos pensados para o dia a dia da equipe</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Cadastro de Residentes</h3>
+        <p>Histórico de saúde completo, alergias e observações importantes organizadas por pessoa.</p>
+      </div>
+      <div class="card">
+        <h3>Agendamento de Doses</h3>
+        <p>Grade com prescrições, horários das doses, intervalos e posologias recomendadas.</p>
+      </div>
+      <div class="card">
+        <h3>Registro de Aplicação</h3>
+        <p>Confirmação imediata com registro da data, hora exata e identificação do cuidador.</p>
+      </div>
+      <div class="card">
+        <h3>Alertas e Notificações</h3>
+        <p>Sinalização visual para doses pendentes ou em atraso para prevenir esquecimentos.</p>
       </div>
     </div>
   </section>
 
   <!-- Rodapé -->
   <footer>
-    <p>MedLembrete — Projeto de Extensão · Instituição de Longa Permanência para Idosos</p>
+    <p><strong>MedLembrete</strong> — Projeto de Extensão Universitária</p>
   </footer>
+
+  <script>
+    // Usuário Padrão de Demonstração
+    const DEMO_USER = {
+      email: "admin@medlembrete.com",
+      pass: "123456"
+    };
+
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+      document.getElementById('loginError').classList.add('hidden');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const emailInput = document.getElementById('email').value.trim().toLowerCase();
+      const passInput = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('loginError');
+
+      // Validação das credenciais inseridas pelo usuário
+      if (emailInput === DEMO_USER.email && passInput === DEMO_USER.pass) {
+        closeLoginModal();
+        
+        // Limpa os campos após o login
+        document.getElementById('email').value = '';
+        document.getElementById('password').value = '';
+
+        const dashboard = document.getElementById('dashboardSection');
+        dashboard.classList.remove('hidden');
+        dashboard.scrollIntoView({ behavior: 'smooth' });
+
+        const navBtn = document.getElementById('navLoginBtn');
+        navBtn.innerText = "Meu Painel";
+        navBtn.onclick = () => dashboard.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      document.getElementById('dashboardSection').classList.add('hidden');
+      const navBtn = document.getElementById('navLoginBtn');
+      navBtn.innerText = "Entrar";
+      navBtn.onclick = openLoginModal;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function markAsAdministered(itemId) {
+      const item = document.getElementById(itemId);
+      const btn = item.querySelector('.btn-check');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      item.style.backgroundColor = '#f0fdf4';
+      item.style.borderColor = '#bbf7d0';
+      btn.innerText = `Confirmado às ${timeStr}`;
+      btn.disabled = true;
+      btn.style.backgroundColor = '#16a34a';
+      btn.style.cursor = 'default';
+    }
+  </script>
 
 </body>
 </html>

@@ -1,164 +1,171 @@
-/* ====== Estilos gerais ====== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Arial, sans-serif;
+/* ====== Modal de Login ====== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
 }
 
-body {
-  background-color: #f4f8fb;
-  color: #1e3a5f;
-  line-height: 1.6;
+.modal-card {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: var(--radius);
+  max-width: 420px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  position: relative;
 }
 
-/* ====== Cabeçalho ====== */
-header {
-  background-color: #0b5394;
-  color: #ffffff;
-  padding: 15px 30px;
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modal-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.demo-credentials-box {
+  background: #f0f9ff;
+  border: 1px dashed var(--primary);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: var(--primary-dark);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--primary);
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.error-msg {
+  color: #dc2626;
+  font-size: 13px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* ====== Painel do Usuário (Dashboard Demo) ====== */
+.dashboard-card {
+  background: #ffffff;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
+  gap: 16px;
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.logo span {
-  color: #7fd1ae;
-}
-
-nav a {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 16px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* ====== Seção de destaque (hero) ====== */
-.hero {
-  background: linear-gradient(135deg, #0b5394, #0f766e);
-  color: #ffffff;
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.hero h1 {
-  font-size: 40px;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 20px;
-  max-width: 700px;
-  margin: 0 auto 30px;
-}
-
-.btn {
-  background-color: #7fd1ae;
-  color: #0b5394;
-  padding: 14px 30px;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: bold;
+.btn-outline-danger {
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-weight: 600;
   cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
+  transition: all 0.2s;
 }
 
-.btn:hover {
-  background-color: #9fe6c6;
+.btn-outline-danger:hover {
+  background: #fef2f2;
 }
 
-.btn-outline {
-  background-color: transparent;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  margin-left: 10px;
-}
-
-/* ====== Seções do conteúdo ====== */
-section {
-  padding: 60px 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-section h2 {
-  font-size: 30px;
-  text-align: center;
-  color: #0b5394;
-  margin-bottom: 30px;
-}
-
-.texto-centro {
-  text-align: center;
-  font-size: 18px;
-}
-
-/* ====== Cartões de funcionalidades ====== */
-.cards {
+.med-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.card {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  width: 280px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.card h3 {
-  color: #0f766e;
-  margin-bottom: 10px;
-}
-
-/* ====== Passos (como funciona) ====== */
-.passos {
+.med-item {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.passo {
-  background-color: #e8f4f1;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 20px;
-  width: 220px;
-  text-align: center;
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.passo .numero {
-  background-color: #0f766e;
-  color: #ffffff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  line-height: 40px;
-  margin: 0 auto 10px;
-  font-weight: bold;
+.med-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-/* ====== Rodapé ====== */
-footer {
-  background-color: #0b5394;
+.med-time {
+  background: #e0f2fe;
+  color: var(--primary-dark);
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.btn-check {
+  background: var(--primary);
   color: #ffffff;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-check:hover {
+  background: var(--primary-dark);
 }
