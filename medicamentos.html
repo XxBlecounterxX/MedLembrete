@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medicamentos — MedLembrete</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="medicamentos">
+
+  <header class="topo">
+    <a href="dashboard.html" class="logo">💊 Med<span>Lembrete</span></a>
+    <nav class="menu">
+      <a href="dashboard.html">Painel</a>
+      <a href="idosos.html">Idosos</a>
+      <a href="medicamentos.html" class="ativo">Medicamentos</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+    <div class="usuario">
+      <span id="nomeUsuario"></span>
+      <button class="btn-sair" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <div class="titulo-pagina">
+      <h1>Cadastro de Medicamentos</h1>
+      <p>Registre os remédios de cada idoso com horários.</p>
+    </div>
+
+    <div class="grade">
+      <!-- Formulário -->
+      <div class="painel">
+        <h2 id="formTituloMed">Cadastrar medicamento</h2>
+        <form onsubmit="salvarMedicamento(event)">
+          <input type="hidden" id="medId">
+          <label>Idoso</label>
+          <select id="medIdoso" required></select>
+          <label>Nome do medicamento</label>
+          <input type="text" id="medNome" placeholder="Ex.: Losartana" required>
+          <label>Dosagem</label>
+          <input type="text" id="medDosagem" placeholder="Ex.: 50mg" required>
+          <label>Horários (separe por vírgula)</label>
+          <input type="text" id="medHorarios" placeholder="Ex.: 08:00, 20:00" required>
+          <label>Observações</label>
+          <input type="text" id="medObs" placeholder="Ex.: Tomar após o café">
+          <button type="submit" class="btn">Salvar medicamento</button>
+          <button type="button" class="btn btn-cinza" id="btnCancelarMed" style="display:none;" onclick="cancelarEdicaoMed()">Cancelar edição</button>
+        </form>
+      </div>
+
+      <!-- Lista -->
+      <div class="painel">
+        <h2>Medicamentos cadastrados</h2>
+        <div id="listaMedicamentos"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

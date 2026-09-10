@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel — MedLembrete</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+
+  <header class="topo">
+    <a href="dashboard.html" class="logo">💊 Med<span>Lembrete</span></a>
+    <nav class="menu">
+      <a href="dashboard.html" class="ativo">Painel</a>
+      <a href="idosos.html">Idosos</a>
+      <a href="medicamentos.html">Medicamentos</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+    <div class="usuario">
+      <span id="nomeUsuario"></span>
+      <button class="btn-sair" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <div class="titulo-pagina">
+      <h1>Painel de Controle</h1>
+      <p id="dataHoje"></p>
+    </div>
+
+    <!-- Indicadores -->
+    <div class="kpis">
+      <div class="kpi"><span class="kpi-num" id="kpiIdosos">0</span><span class="kpi-rotulo">Idosos cadastrados</span></div>
+      <div class="kpi"><span class="kpi-num" id="kpiMedicamentos">0</span><span class="kpi-rotulo">Medicamentos ativos</span></div>
+      <div class="kpi"><span class="kpi-num" id="kpiDosesHoje">0</span><span class="kpi-rotulo">Doses de hoje</span></div>
+      <div class="kpi"><span class="kpi-num" id="kpiAtrasadas">0</span><span class="kpi-rotulo">Em atraso</span></div>
+    </div>
+
+    <div class="grade">
+      <!-- Agenda do dia -->
+      <div class="painel">
+        <div class="painel-titulo">
+          <h2>Agenda de medicações de hoje</h2>
+          <a href="medicamentos.html" class="link">+ Novo medicamento</a>
+        </div>
+        <div id="agendaLista"></div>
+      </div>
+
+      <!-- Alertas -->
+      <div class="painel">
+        <div class="painel-titulo"><h2>Alertas</h2></div>
+        <div id="alertasLista"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

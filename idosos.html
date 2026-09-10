@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idosos — MedLembrete</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="idosos">
+
+  <header class="topo">
+    <a href="dashboard.html" class="logo">💊 Med<span>Lembrete</span></a>
+    <nav class="menu">
+      <a href="dashboard.html">Painel</a>
+      <a href="idosos.html" class="ativo">Idosos</a>
+      <a href="medicamentos.html">Medicamentos</a>
+      <a href="relatorios.html">Relatórios</a>
+    </nav>
+    <div class="usuario">
+      <span id="nomeUsuario"></span>
+      <button class="btn-sair" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <div class="titulo-pagina">
+      <h1>Cadastro de Idosos</h1>
+      <p>Gerencie os residentes da instituição.</p>
+    </div>
+
+    <div class="grade">
+      <!-- Formulário -->
+      <div class="painel">
+        <h2 id="formTitulo">Cadastrar idoso</h2>
+        <form onsubmit="salvarIdoso(event)">
+          <input type="hidden" id="idosoId">
+          <label>Nome completo</label>
+          <input type="text" id="idosoNome" required>
+          <label>Data de nascimento</label>
+          <input type="date" id="idosoNascimento" required>
+          <label>Condições de saúde</label>
+          <input type="text" id="idosoCondicoes" placeholder="Ex.: Hipertensão, Diabetes">
+          <label>Quarto / Leito</label>
+          <input type="text" id="idosoQuarto" placeholder="Ex.: 101">
+          <button type="submit" class="btn">Salvar idoso</button>
+          <button type="button" class="btn btn-cinza" id="btnCancelar" style="display:none;" onclick="cancelarEdicaoIdoso()">Cancelar edição</button>
+        </form>
+      </div>
+
+      <!-- Lista -->
+      <div class="painel">
+        <h2>Idosos cadastrados</h2>
+        <div id="listaIdosos"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

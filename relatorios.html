@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios — MedLembrete</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="relatorios">
+
+  <header class="topo">
+    <a href="dashboard.html" class="logo">💊 Med<span>Lembrete</span></a>
+    <nav class="menu">
+      <a href="dashboard.html">Painel</a>
+      <a href="idosos.html">Idosos</a>
+      <a href="medicamentos.html">Medicamentos</a>
+      <a href="relatorios.html" class="ativo">Relatórios</a>
+    </nav>
+    <div class="usuario">
+      <span id="nomeUsuario"></span>
+      <button class="btn-sair" onclick="logout()">Sair</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <div class="titulo-pagina">
+      <h1>Relatórios de Adesão</h1>
+      <p>Histórico e acompanhamento por idoso.</p>
+    </div>
+
+    <div class="painel">
+      <h2>Gerar relatório</h2>
+      <div class="linha-form">
+        <div>
+          <label>Idoso</label>
+          <select id="relIdoso"></select>
+        </div>
+        <div>
+          <label>Data</label>
+          <input type="date" id="relData">
+        </div>
+        <button class="btn" style="align-self: flex-end;" onclick="gerarRelatorio()">Gerar relatório</button>
+        <button class="btn btn-cinza" style="align-self: flex-end;" onclick="window.print()">🖨️ Imprimir / PDF</button>
+      </div>
+    </div>
+
+    <div id="relatorioArea"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
